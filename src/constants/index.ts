@@ -320,6 +320,14 @@ export const SidebarLinksMobile = [
 ];
 
 
+export const notificationsData = {
+  settings_count: null,
+  translator_count: null,
+  inbox_count: 4,
+  alert_count: 1,
+};
+
+
 
 
 

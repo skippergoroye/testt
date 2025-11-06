@@ -4,6 +4,7 @@ import NavProfile from "@/components/dashboard/NavProfile";
 import PathnameDisplay from "@/components/dashboard/PathnameDisplay";
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar"
+import { notificationsData } from "@/constants";
 
 export default function RootLayout({
   children,
@@ -21,7 +22,7 @@ export default function RootLayout({
           <div className="h-16 w-full flex items-center justify-between  p-5  sm:p-8  border-b-3 border-black bg-[#f5f5f5] z-50">
             <PathnameDisplay />
             <MobileNav />
-            <NavProfile />
+               <NavProfile  data={notificationsData} className="lg:flex space-x-4 hidden"  />
           </div>
 
           <div className="flex-1 overflow-auto no-scrollbar px-8 py-6 bg-[#f5f5f5] relative">
