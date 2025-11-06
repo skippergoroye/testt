@@ -53,7 +53,7 @@ export default function MarketingStats() {
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <Card key={index} className="px-3 border-2 border-black w-[280px] rounded-[6px] bg-white">
+              <Card key={index} className="px-3 border-2 border-black w-[255px] rounded-[6px] bg-white">
                 <div className="flex justify-between w-full">
                   <div className="flex flex-col w-full">
                     <p className="text-sm text-muted-foreground mb-2">{stat.title}</p>
