@@ -184,7 +184,7 @@ export default function EmailClient() {
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
-      <div className="fixed left-[260px] top-[90px] w-56 h-screen bg-white border-r border-border flex flex-col p-6">
+      <div className="fixed left-0 top-0 w-56 h-screen bg-white border-r border-border flex flex-col p-6">
         {/* User Profile */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-4">
