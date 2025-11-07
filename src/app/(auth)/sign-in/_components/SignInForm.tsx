@@ -6,15 +6,15 @@ import { z } from "zod";
 import { Eye, EyeOff } from "lucide-react";
 import { Form } from "@/components/ui/form";
 import { SignInSchema } from "@/lib/schemas";
-import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { useRouter } from "next/navigation";
 import CustomFormField, { FormFieldType } from "@/components/shared/CustomFormField";
 import SubmitButton from "@/components/shared/SubmitButton";
+import ToastNotification from "@/components/shared/ToastNotification";
 
 const SignInForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [login, { isLoading }] = useLoginMutation();
+  // const [login, { isLoading }] = useLoginMutation();
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -27,8 +27,14 @@ const SignInForm = () => {
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     try {
       router.push("/marketing")
+       ToastNotification({
+        title: "Successful",
+        description: "Login SUccessfully",
+        type: "success",
+      });
+      console.log(values)
     } catch (error) {
-      console.log("error")
+      console.log(error)
     }
   };
 
@@ -68,7 +74,7 @@ const SignInForm = () => {
           Forgot password?&nbsp;
           <span className="text-main-600">Reset Password </span>
         </p>
-        <SubmitButton isLoading={isLoading} loadingText="Logging In..." className="w-full h-[50px] mt-2 cursor-pointer">
+        <SubmitButton loadingText="Logging In..." className="w-full h-[50px] mt-2 cursor-pointer">
           Submit
         </SubmitButton>
       </form>

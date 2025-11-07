@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React  from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,8 +18,9 @@ const PathnameDisplay = () => {
 
   const onSubmit = async (values: z.infer<typeof SearchTermSchema>) => {
     try {
+      console.log(values)
     } catch (error) {
-      console.log("error");
+      console.log(error);
     }
   };
 
