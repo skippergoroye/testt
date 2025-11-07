@@ -17,7 +17,7 @@ const SubmitButton = ({
     <Button
       type={type}
       disabled={isLoading || loading || disabled}
-      className={className ?? " text-white"}
+      className={className ?? " text-white cursor-pointer"}
       onClick={clickFn}
     >
       {isLoading || loading ? (

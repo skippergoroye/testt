@@ -68,7 +68,7 @@ const SignInForm = () => {
           Forgot password?&nbsp;
           <span className="text-main-600">Reset Password </span>
         </p>
-        <SubmitButton isLoading={isLoading} loadingText="Logging In..." className="w-full h-[50px] mt-6">
+        <SubmitButton isLoading={isLoading} loadingText="Logging In..." className="w-full h-[50px] mt-2 cursor-pointer">
           Submit
         </SubmitButton>
       </form>

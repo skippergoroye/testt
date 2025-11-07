@@ -1,20 +1,22 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChevronLeft, ChevronRight, Inbox, Star, Send, AlertCircle, FileText, Trash, Pencil } from "lucide-react";
+import Avatar from "../../../../../../public/images/avater.jpg";
+import Image from "next/image";
 
 interface Email {
-  id: number
-  starred: boolean
-  sender: string
-  subject: string
-  preview: string
-  time: string
-  hasAttachment: boolean
+  id: number;
+  starred: boolean;
+  sender: string;
+  subject: string;
+  preview: string;
+  time: string;
+  hasAttachment: boolean;
 }
 
 const emailData: Email[] = [
@@ -153,43 +155,47 @@ const emailData: Email[] = [
     time: "June 11",
     hasAttachment: false,
   },
-]
+];
 
 const navItems = [
-  { icon: "✎", label: "Compose", highlight: true },
-  { icon: "📥", label: "Inbox", count: 24 },
-  { icon: "⭐", label: "Starred" },
-  { icon: "✈️", label: "Sent" },
-  { icon: "i", label: "Important" },
-  { icon: "📋", label: "Drafts", count: 30 },
-  { icon: "🗑️", label: "Trash" },
-]
+  { icon: Pencil, label: "Compose", highlight: true },
+  { icon: Inbox, label: "Inbox", count: 24 },
+  { icon: Star, label: "Starred" },
+  { icon: Send, label: "Sent" },
+  { icon: AlertCircle, label: "Important" },
+  { icon: FileText, label: "Drafts", count: 30 },
+  { icon: Trash, label: "Trash" },
+];
 
-const labels = ["Work", "Family", "Friends", "Office"]
+const labels = ["Work", "Family", "Friends", "Office"];
 
 export default function EmailClient() {
-  const [selectedEmails, setSelectedEmails] = useState<Set<number>>(new Set())
-  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedEmails, setSelectedEmails] = useState<Set<number>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
 
   const toggleEmail = (id: number) => {
-    const newSelected = new Set(selectedEmails)
+    const newSelected = new Set(selectedEmails);
     if (newSelected.has(id)) {
-      newSelected.delete(id)
+      newSelected.delete(id);
     } else {
-      newSelected.add(id)
+      newSelected.add(id);
     }
-    setSelectedEmails(newSelected)
-  }
+    setSelectedEmails(newSelected);
+  };
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex  h-full bg-background p-10 border-2 border-black">
       {/* Sidebar */}
-      <div className="fixed left-0 top-0 w-56 h-screen bg-white border-r border-border flex flex-col p-6">
+      <div className="fixed left-[290px] top-[95px] w-56 h-full bg-white border-r border-border flex flex-col p-6">
         {/* User Profile */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-200 to-orange-300 flex items-center justify-center text-sm font-semibold">
-              AB
+            <div className="w-12 h-12 border border-black rounded-full overflow-hidden">
+              <Image
+                src={Avatar}
+                alt="man_head_down"
+                className="w-12 h-12 rounded-full object-cover border border-black"
+              />
             </div>
             <div>
               <div className="font-semibold text-foreground">Ari budin</div>
@@ -201,20 +207,23 @@ export default function EmailClient() {
         {/* Navigation */}
         <ScrollArea className="flex-1">
           <div className="space-y-1">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  item.highlight ? "bg-lime-200 text-black hover:bg-lime-300" : "text-foreground hover:bg-secondary"
-                }`}
-              >
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
-                {item.count && (
-                  <span className="ml-auto text-xs bg-white text-black px-2 py-0.5 rounded">{item.count}</span>
-                )}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const Icon = item.icon; // ✅ store icon component
+              return (
+                <button
+                  key={item.label}
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    item.highlight ? "bg-lime-200 text-black hover:bg-lime-300" : "text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" /> {/* ✅ render Lucide icon */}
+                  <span>{item.label}</span>
+                  {item.count && (
+                    <span className="ml-auto text-xs bg-white text-black px-2 py-0.5 rounded">{item.count}</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {/* Labels */}
@@ -304,5 +313,5 @@ export default function EmailClient() {
         </ScrollArea>
       </div>
     </div>
-  )
+  );
 }
