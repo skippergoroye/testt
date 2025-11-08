@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Starter
 
-## Getting Started
+A Next.js application with TypeScript, Redux toolkit for client state management, Redux toolkit query for server state mangement, shadcn UI and Tailwind CSS.
 
-First, run the development server:
+## Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn
+
+## Installation
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+## Running the App
+
+### Development Mode
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app will be available at [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build the application:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Run the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Additional Commands
 
-## Deploy on Vercel
+- `npm run lint` - Run ESLint to check for code issues
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Tradeoffs
+
+- **Redux Toolkit Query**: Provides automatic caching, request deduplication, and background refetching, but adds bundle size and complexity compared to simpler data fetching solutions.
+- **Client-side State Management**: Using Redux toolkit for global state management alongside Next.js App Router. This provides predictable state updates but requires client components, limiting the use of server components in some areas.
+- **API Base URL**: Currently hardcoded in `apiSlice.ts` (using Rick and Morty API as example). The environment variable pattern is commented out and should be configured for production.
+- **Middleware on Edge Runtime**: Fast response times with redirects, but limited to Edge-compatible APIs and cannot access Node.js APIs.
+
+### Performance Decisions
+
+- **RTK Query Caching**: Automatic request caching and deduplication reduces redundant API calls and improves perceived performance.
+- **Next.js Image Optimization**: Configured remote patterns for optimized image loading with Next.js Image component.
+- **Font Optimization**: Using Next.js font optimization (Geist fonts) to reduce layout shift and improve load times.
+- **Debouncing**: Custom `useDebounce` hook (500ms default) for input fields to reduce unnecessary API calls or computations.
+- **TypeScript Strict Mode**: Enabled for better type safety and catch errors at compile time, trading some development speed for runtime reliability.
+
+### Assumptions
+
+- **Authentication**: API uses Bearer token authentication stored in Redux auth state. All authenticated requests automatically include the token via `prepareHeaders`.
+- **Route Protection**: Root path (`/`) redirects to `/sign-in`, assuming authentication is required for the application.
+- **Node.js Version**: Requires Node.js 18.x or higher for Next.js 15 compatibility.
+- **API Structure**: Assumes RESTful API structure compatible with RTK Query's fetchBaseQuery.
+- **Client-side Rendering**: Most interactive features use client components, assuming the app prioritizes interactivity over server-side rendering benefits.
