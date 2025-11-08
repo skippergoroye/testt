@@ -2,6 +2,12 @@
 
 A Next.js application with TypeScript, Redux toolkit for client state management, Redux toolkit query for server state mangement, shadcn UI and Tailwind CSS.
 
+
+# To Login
+Please use any email and password of your choice example 
+Email: oluwatosinadegoroye21@gmail.com
+Password: Password123!
+
 ## Prerequisites
 
 - Node.js 18.x or higher
