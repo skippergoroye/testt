@@ -36,4 +36,4 @@ export const emailApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {  useFetchEmailsQuery, useFetchCharactersQuery } = emailApi;
+export const {  useFetchCharactersQuery, useFetchEmailsQuery } = emailApi;

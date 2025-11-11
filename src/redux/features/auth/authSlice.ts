@@ -12,16 +12,12 @@ interface AuthState {
     };
     email: string | null;
   } | null;
-  otp: {
-    ref: string | null;
-    email: string | null;
-  } | null;
+
 }
 
 const initialState: AuthState = {
   token: null,
   user: null,
-  otp: null,
 };
 
 export const authSlice = createSlice({
@@ -40,66 +36,21 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
       }
     },
-    setOtpData: (
-      state,
-      action: PayloadAction<{
-        ref: string;
-        email: string;
-      }>
-    ) => {
-      state.otp = {
-        ref: action.payload.ref,
-        email: action.payload.email,
-      };
-    },
-    clearOtpData: (state) => {
-      state.otp = null;
-    },
-    // Clear user data and token, also clear persisted state
+  
     logout: (state) => {
       state.token = null;
       state.user = null;
-      state.otp = null;
 
-      // Clear persisted redux state
       if (typeof window !== "undefined") {
-        localStorage.removeItem("persist:auth"); // Or your specific redux-persist key
+        localStorage.removeItem("persist:auth");
         sessionStorage.removeItem("persist:auth");
       }
     },
   },
 });
 
-// Cookie utility integration
-export const setAuthCookie = (token: string, days = 1) => {
-  if (typeof window !== "undefined") {
-    const expires = new Date(Date.now() + days * 86400e3).toUTCString();
-    document.cookie = `authToken=${token}; expires=${expires}; path=/; Secure; SameSite=Lax`;
-  }
-};
-
-export const clearAuthCookie = () => {
-  if (typeof window !== "undefined") {
-    document.cookie =
-      "authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-  }
-};
-
-// Action creators
-export const {
-  setCredentials,
-  setOtpData,
-  clearOtpData,
-  logout,
-} = authSlice.actions;
-
-// Selectors
-export const selectCurrentToken = (state: { auth: AuthState }) =>
-  state.auth.token;
-export const selectCurrentUser = (state: { auth: AuthState }) =>
-  state.auth.user;
-export const selectOtpData = (state: { auth: AuthState }) => state.auth.otp;
-export const selectIsAuthenticated = (state: { auth: AuthState }) =>
-  !!state.auth.token;
+export const { setCredentials, logout } = authSlice.actions;
 
 export default authSlice.reducer;
+
+

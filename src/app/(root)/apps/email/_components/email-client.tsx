@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SearchTermSchema } from "@/lib/schemas";
 import CustomFormField, { FormFieldType } from "@/components/shared/CustomFormField";
-import { useFetchCharactersQuery } from "@/redux/features/apps/email/emailApi";
+import { useFetchEmailsQuery } from "@/redux/features/apps/email/emailApi";
 import {
   ChevronLeft,
   ChevronRight,
@@ -80,7 +80,7 @@ export default function EmailClient() {
     [currentPage, debouncedSearchTerm, statusFilter]
   );
 
-  const { data, isLoading, isError, isFetching, refetch } = useFetchCharactersQuery(queryArgs);
+  const { data, isLoading, isError, isFetching, refetch } = useFetchEmailsQuery(queryArgs);
 
   useEffect(() => {
     setCurrentPage(1);

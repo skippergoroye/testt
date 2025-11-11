@@ -12,9 +12,12 @@ import CustomFormField, { FormFieldType } from "@/components/shared/CustomFormFi
 import SubmitButton from "@/components/shared/SubmitButton";
 import ToastNotification from "@/components/shared/ToastNotification";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/redux/features/auth/authSlice";
 
 const SignInForm = () => {
   const router = useRouter();
+    const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [login, { isLoading }] = useLoginMutation();
 
@@ -29,6 +32,12 @@ const SignInForm = () => {
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     try {
       const res = await login(values).unwrap();
+       // ✅ Extract token & user from response
+      const token = res?.data?.token;
+      const user = res?.data?.user;
+
+      // ✅ Dispatch to Redux store
+      dispatch(setCredentials({ token, user }));
 
       ToastNotification({
         title: "Successful",
@@ -37,7 +46,6 @@ const SignInForm = () => {
       });
       router.push("/marketing");
 
-      console.log(values);
     } catch (error: any) {
       ToastNotification({
         title: "Error",
