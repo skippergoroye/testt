@@ -22,7 +22,7 @@ export const emailApi = apiSlice.injectEndpoints({
       dateTo?: string;
     }>({
       query: ({ page = 1, limit = 15, view, labels, search, dateFrom, dateTo }) => ({
-        url: "/emails", // ✅ Correct endpoint
+        url: "/emails", 
         params: { page, limit, view, labels, search, dateFrom, dateTo },
       }),
     

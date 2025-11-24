@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SearchTermSchema } from "@/lib/schemas";
 import CustomFormField, { FormFieldType } from "@/components/shared/CustomFormField";
-import { useFetchEmailsQuery } from "@/redux/features/apps/email/emailApi";
+import { useFetchCharactersQuery } from "@/redux/features/apps/email/emailApi";
 import {
   ChevronLeft,
   ChevronRight,
@@ -43,7 +43,7 @@ const navItems = [
 
 const labels = ["Work", "Family", "Friends", "Office"];
 
-export default function EmailClient() {
+export default function EmailClient () {
   const [selectedEmails, setSelectedEmails] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -80,7 +80,7 @@ export default function EmailClient() {
     [currentPage, debouncedSearchTerm, statusFilter]
   );
 
-  const { data, isLoading, isError, isFetching, refetch } = useFetchEmailsQuery(queryArgs);
+  const { data, isLoading, isError, isFetching, refetch } = useFetchCharactersQuery(queryArgs);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -289,3 +289,4 @@ export default function EmailClient() {
     </div>
   );
 }
+
