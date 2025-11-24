@@ -4,9 +4,7 @@ A Next.js application with TypeScript, Redux toolkit for client state management
 
 
 # To Login
-Please use any email and password of your choice example 
-Email: oluwatosinadegoroye21@gmail.com
-Password: Password123!
+Please Kindly create an account
 
 ## Prerequisites
 
